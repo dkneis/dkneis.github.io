@@ -12,7 +12,7 @@ output:
 
 The source code is managed in [this github repository](https://github.com/dkneis/rodeo). The main documentation is currently the [package vignette](https://github.com/dkneis/rodeo/blob/master/vignettes/rodeo.pdf).
 
-A release version or `rodeo` is available on [CRAN](http://cran.r-project.org/package=deSolve) and can be installed with
+A release version or `rodeo` is available on [CRAN](http://cran.r-project.org/package=rodeo) and can be installed with
 
 ```{r, eval=FALSE, echo=TRUE}
 install.packages('rodeo')
@@ -26,9 +26,11 @@ install_github('dkneis/rodeo')
 
 ### Demo examples
 
-There is a collection of examples to demonstrate the functionality of `rodeo`. To run these examples, you need a recent version of [`R`](https://www.r-project.org/) including the developer tools to compile Fortran code. I prepared a short PDF document with [minimalistic installations](installShort.pdf). In case of problems, please consult the official [administration and installation guide](https://cran.r-project.org/doc/manuals/r-release/R-admin.html), especially the appendices.
+There is a collection of examples to demonstrate the functionality of `rodeo`. To try out the examples, you need a recent version of [`R`](https://www.r-project.org/) including the developer tools to compile Fortran code. I prepared a short PDF document with [minimalistic installations](installShort.pdf). In case of problems, please consult the official [administration and installation guide](https://cran.r-project.org/doc/manuals/r-release/R-admin.html), especially the appendices.
 
-| Download link | Description |
+Each of the download links below points to a zip archive. Save the archive to disk and unpack. This should create a folder containing a file `run.r` as well as several text and/or spreadsheet files. Open the script `run.r` in your preferred R editor or IDE and set R's working directory to the newly created folder, then process `run.r` through R. Adjustable parameters of the models can be found at the top of the script.
+
+| Download | Description |
 |---|---|
 | [Streeter-Phelps](rodeo/streeterPhelpsLike.zip)  | The model simulates aerobic 1st-order decay of a substance in a stirred tank reactor without in-/outflow. The state variables are degradable organic matter (OM) and dissolved oxygen (DO). This is in contrast to the classical Streeter-Phelps model which considers biochemical oxygen demand, BOD, (rather than OM) and the oxygen deficit (rather than DO). The model is reduced to the very basics. It does not account for oxygen limitation, hence, it returns non-sense if the system goes anaerobic. Furthermore, the model neglects temperature dependence of micribioal activity, it does not distinguish between CBOD and NBOD, there is no interaction between water and sediment, ... |
 | [Advection-dispersion](rodeo/advectionDispersion.zip) | Demonstrates the solution of a 1D partial differential equation problem by means of semi-discretization known as the [method-of-lines](https://en.wikipedia.org/wiki/Method_of_lines). The model simulates the transport of a conservative tracer along a river reach assuming steady-uniform flow (i.e. constant flow rate, uniform cross-section). The result of numerical integration is (visually) compared to a classic analytical solution. |
