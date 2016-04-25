@@ -1,0 +1,76 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{url}
+\author{dkneis}
+\begin{document}
+\newcommand{\software}[1]{\texttt{#1}}
+
+{\LARGE How to run the \software{rodeo} examples}
+
+\vspace{5mm}
+Updated \today{} by \url{david.kneis@tu-dresden.de}
+
+\vspace{5mm}
+\hrule
+
+\tableofcontents
+
+\vspace{5mm}
+\hrule
+
+\section{Installation of \software{R} and auxiliary tools} \label{sec:install}
+
+Extensive help on the installation of R and related utilities can be found on \url{https://cran.r-project.org/doc/manuals/r-release/R-admin.html}. Please consult this document if the following short instructions are insufficient.
+
+\subsection{Install \software{R}}
+Make sure that you really need to install \software{R}. If this is the case (first install or upgrade from an old version), go to \url{https://cloud.r-project.org/} and follow the download links in the box at the top of the page. Linux users probably want to use a package manager instead.
+
+\subsection{Install auxiliary tools}
+Although \software{rodeo} is not a so-called \emph{source package}, it requires the tools that are used to build those packages. This is because of \software{rodeo}'s built-in Fortran code generator. Before installing any tools, check whether this is necessary. For example, you could enter the command
+
+\begin{verbatim}
+gfortran --version
+\end{verbatim}
+
+at a terminal. If this succeeds, i.e. shows a version info, the required tools may already be there. Otherwise, see below:
+
+On a Linux system, one typically needs to install the GNU compiler collection, including \software{gfortran}. See the section 'Essential and useful other programs under a Unix-alike' on the web page mentioned at the top of Sec.~\ref{sec:install}.
+
+Windows users need to install the so-called \software{Rtools} from \url{https://cran.r-project.org/bin/windows/Rtools}. Chose the version that is compatible with the installed \software{R} version. Please read the section 'The-Windows-toolset' (currently appendix D) on the web page mentioned at the top of Sec.~\ref{sec:install} to circumvent typical pitfalls during and after installation. I recommend to install into a directory whose name does not contain blanks. If the automatic installer has an option to edit the PATH environment variable, let it do so. 
+
+\section{After the installation}
+
+On Windows, make sure that the directory with the \software{Rtools} is listed at the very beginning of your PATH environment variable. The installation folder of \software{R} itself should also be included in PATH.
+
+The two commands
+
+\begin{verbatim}
+gfortran --help
+R --help
+\end{verbatim}
+
+should work now when entered in a shell.
+
+\section{Installation of \software{R}-packages}
+
+The following packages are required to run the examples:
+
+\bigskip
+\begin{tabular}{ll}
+\software{rodeo} & The code generator \\
+\software{deSolve} & Numerical solvers for differential equations \\
+\software{readxl} & Reads spreadsheet data (.xlsx files) \\
+\software{lhs} & Latin hypercube sampling methods \\
+\end{tabular}
+
+\bigskip
+The packages are all available on CRAN (\url{https://cran.r-project.org/}) and installation is most conveniently done from within \software{R}, using
+
+\begin{verbatim}
+install.packages(c("rodeo", "deSolve", "readxl", "lhs"))
+\end{verbatim}
+
+The installation may take some time because dependent packages are installed along with the above-mentioned ones.
+
+\end{document}
