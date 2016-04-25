@@ -24,9 +24,11 @@ library('devtools')
 install_github('dkneis/rodeo')
 ```
 
+Interactive modeling examples some of which are implemented with `rodeo` are hosted [here](http://limno-live.hydro.tu-dresden.de) (maintained by TU Dresden, Institute of Hydrobiology).
+
 ### Demo examples
 
-There is a collection of examples to demonstrate the functionality of `rodeo`. To try out the examples, you need a recent version of [`R`](https://www.r-project.org/) including the developer tools to compile Fortran code. I prepared a short PDF document with [minimalistic installations](installShort.pdf). In case of problems, please consult the official [administration and installation guide](https://cran.r-project.org/doc/manuals/r-release/R-admin.html), especially the appendices.
+There is a collection of examples to demonstrate the functionality of `rodeo`. To try out the examples, you need a recent version of [`R`](https://www.r-project.org/) including the developer tools to compile Fortran code. I prepared a short PDF document with [minimalistic instructions](installShort.pdf). In case of problems, please consult the official [administration and installation guide](https://cran.r-project.org/doc/manuals/r-release/R-admin.html), especially the appendices.
 
 Each of the download links below points to a zip archive. Save the archive to disk and unpack. This should create a folder containing a file `run.r` as well as several text and/or spreadsheet files. Open the script `run.r` in your preferred R editor or IDE and set R's working directory to the newly created folder, then process `run.r` through R. Adjustable parameters of the models can be found at the top of the script.
 
@@ -39,4 +41,9 @@ Each of the download links below points to a zip archive. Save the archive to di
 
 The following packages are not 'officially' released and they are not uploaded on CRAN. The links direct to the respective source code repositories.
 
+* [Generic GUI for `rodeo`-based 0-dimensional models](https://github.com/dkneis/rodeoApp)
+* [Some utilities for 1D diagenetic modeling](https://github.com/dkneis/diatools)
 
+## Other software
+
+* The [ECHSE](http://echse.github.io/) framework for rapid development of hydrological model engines (implemented in C++).

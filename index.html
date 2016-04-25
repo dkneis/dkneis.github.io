@@ -70,6 +70,7 @@ img {
 <li><a href="#demo-examples">Demo examples</a></li>
 </ul></li>
 <li><a href="#other-r-packages">Other R packages</a></li>
+<li><a href="#other-software">Other software</a></li>
 </ul>
 </div>
 
@@ -84,10 +85,11 @@ img {
 <p>To install the latest development version instead, one can use</p>
 <pre class="r"><code>library('devtools')
 install_github('dkneis/rodeo')</code></pre>
+<p>Interactive modeling examples some of which are implemented with <code>rodeo</code> are hosted <a href="http://limno-live.hydro.tu-dresden.de">here</a> (maintained by TU Dresden, Institute of Hydrobiology).</p>
 </div>
 <div id="demo-examples" class="section level3">
 <h3>Demo examples</h3>
-<p>There is a collection of examples to demonstrate the functionality of <code>rodeo</code>. To try out the examples, you need a recent version of <a href="https://www.r-project.org/"><code>R</code></a> including the developer tools to compile Fortran code. I prepared a short PDF document with <a href="installShort.pdf">minimalistic installations</a>. In case of problems, please consult the official <a href="https://cran.r-project.org/doc/manuals/r-release/R-admin.html">administration and installation guide</a>, especially the appendices.</p>
+<p>There is a collection of examples to demonstrate the functionality of <code>rodeo</code>. To try out the examples, you need a recent version of <a href="https://www.r-project.org/"><code>R</code></a> including the developer tools to compile Fortran code. I prepared a short PDF document with <a href="installShort.pdf">minimalistic instructions</a>. In case of problems, please consult the official <a href="https://cran.r-project.org/doc/manuals/r-release/R-admin.html">administration and installation guide</a>, especially the appendices.</p>
 <p>Each of the download links below points to a zip archive. Save the archive to disk and unpack. This should create a folder containing a file <code>run.r</code> as well as several text and/or spreadsheet files. Open the script <code>run.r</code> in your preferred R editor or IDE and set R’s working directory to the newly created folder, then process <code>run.r</code> through R. Adjustable parameters of the models can be found at the top of the script.</p>
 <table>
 <thead>
@@ -112,6 +114,16 @@ install_github('dkneis/rodeo')</code></pre>
 <div id="other-r-packages" class="section level2">
 <h2>Other R packages</h2>
 <p>The following packages are not ‘officially’ released and they are not uploaded on CRAN. The links direct to the respective source code repositories.</p>
+<ul>
+<li><a href="https://github.com/dkneis/rodeoApp">Generic GUI for <code>rodeo</code>-based 0-dimensional models</a></li>
+<li><a href="https://github.com/dkneis/diatools">Some utilities for 1D diagenetic modeling</a></li>
+</ul>
+</div>
+<div id="other-software" class="section level2">
+<h2>Other software</h2>
+<ul>
+<li>The <a href="http://echse.github.io/">ECHSE</a> framework for rapid development of hydrological model engines (implemented in C++).</li>
+</ul>
 </div>
 
 
