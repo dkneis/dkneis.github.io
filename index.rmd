@@ -8,9 +8,9 @@ output:
 ## R package `rodeo`
 
 ### Basic information
-`rodeo` is an add-on package for the statistical computing software [`R`](https://www.r-project.org/). It facilitates the implementation of mechanistic models built on ordinary differential equations (ODE). Its heart is a code generator whose output (Fortran95+ or R) can be passed to numerical solvers.
+[`rodeo`](http://cran.r-project.org/package=rodeo) is an add-on package for the statistical computing software [`R`](https://www.r-project.org/). It facilitates the implementation of mechanistic models built on ordinary differential equations (ODE). Its heart is a code generator whose output (Fortran95+ or R) can be passed to numerical solvers, namely those from the packages [deSolve](http://cran.r-project.org/package=deSolve) and [rootSolve](http://cran.r-project.org/package=rootSolve).
 
-The source code is managed in [this github repository](https://github.com/dkneis/rodeo). The main documentation is currently the [package vignette](https://github.com/dkneis/rodeo/blob/master/vignettes/rodeo.pdf).
+The source code is managed in [this github repository](https://github.com/dkneis/rodeo). The current main documentation is the [package vignette](https://github.com/dkneis/rodeo/blob/master/vignettes/rodeo.pdf) (please save the PDF file to disk if it doesn't show up in the browser).
 
 A release version or `rodeo` is available on [CRAN](http://cran.r-project.org/package=rodeo) and can be installed with
 
@@ -28,7 +28,7 @@ Interactive modeling examples some of which are implemented with `rodeo` are hos
 
 ### Demo examples
 
-There is a collection of examples to demonstrate the functionality of `rodeo`. To try out the examples, you need a recent version of [`R`](https://www.r-project.org/) including the developer tools to compile Fortran code. I prepared a short PDF document with [minimalistic instructions](installShort.pdf). In case of problems, please consult the official [administration and installation guide](https://cran.r-project.org/doc/manuals/r-release/R-admin.html), especially the appendices.
+There is a collection of examples to demonstrate the functionality of `rodeo`. To try out the examples, you need a recent version of [`R`](https://www.r-project.org/) including the developer tools to compile Fortran code. I prepared a short PDF document with [minimalistic instructions](rodeoExamples/installShort.pdf). In case of problems, please consult the official [administration and installation guide](https://cran.r-project.org/doc/manuals/r-release/R-admin.html), especially the appendices.
 
 Each of the download links below points to a zip archive. Save the archive to disk and unpack. This should create a folder containing a file `run.r` as well as several text and/or spreadsheet files. Open the script `run.r` in your preferred R editor or IDE and set R's working directory to the newly created folder, then process `run.r` through R. Adjustable parameters of the models can be found at the top of the script.
 

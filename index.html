@@ -78,8 +78,8 @@ img {
 <h2>R package <code>rodeo</code></h2>
 <div id="basic-information" class="section level3">
 <h3>Basic information</h3>
-<p><code>rodeo</code> is an add-on package for the statistical computing software <a href="https://www.r-project.org/"><code>R</code></a>. It facilitates the implementation of mechanistic models built on ordinary differential equations (ODE). Its heart is a code generator whose output (Fortran95+ or R) can be passed to numerical solvers.</p>
-<p>The source code is managed in <a href="https://github.com/dkneis/rodeo">this github repository</a>. The main documentation is currently the <a href="https://github.com/dkneis/rodeo/blob/master/vignettes/rodeo.pdf">package vignette</a>.</p>
+<p><a href="http://cran.r-project.org/package=rodeo"><code>rodeo</code></a> is an add-on package for the statistical computing software <a href="https://www.r-project.org/"><code>R</code></a>. It facilitates the implementation of mechanistic models built on ordinary differential equations (ODE). Its heart is a code generator whose output (Fortran95+ or R) can be passed to numerical solvers, namely those from the packages <a href="http://cran.r-project.org/package=deSolve">deSolve</a> and <a href="http://cran.r-project.org/package=rootSolve">rootSolve</a>.</p>
+<p>The source code is managed in <a href="https://github.com/dkneis/rodeo">this github repository</a>. The current main documentation is the <a href="https://github.com/dkneis/rodeo/blob/master/vignettes/rodeo.pdf">package vignette</a> (please save the PDF file to disk if it doesn’t show up in the browser).</p>
 <p>A release version or <code>rodeo</code> is available on <a href="http://cran.r-project.org/package=rodeo">CRAN</a> and can be installed with</p>
 <pre class="r"><code>install.packages('rodeo')</code></pre>
 <p>To install the latest development version instead, one can use</p>
@@ -89,7 +89,7 @@ install_github('dkneis/rodeo')</code></pre>
 </div>
 <div id="demo-examples" class="section level3">
 <h3>Demo examples</h3>
-<p>There is a collection of examples to demonstrate the functionality of <code>rodeo</code>. To try out the examples, you need a recent version of <a href="https://www.r-project.org/"><code>R</code></a> including the developer tools to compile Fortran code. I prepared a short PDF document with <a href="installShort.pdf">minimalistic instructions</a>. In case of problems, please consult the official <a href="https://cran.r-project.org/doc/manuals/r-release/R-admin.html">administration and installation guide</a>, especially the appendices.</p>
+<p>There is a collection of examples to demonstrate the functionality of <code>rodeo</code>. To try out the examples, you need a recent version of <a href="https://www.r-project.org/"><code>R</code></a> including the developer tools to compile Fortran code. I prepared a short PDF document with <a href="rodeoExamples/installShort.pdf">minimalistic instructions</a>. In case of problems, please consult the official <a href="https://cran.r-project.org/doc/manuals/r-release/R-admin.html">administration and installation guide</a>, especially the appendices.</p>
 <p>Each of the download links below points to a zip archive. Save the archive to disk and unpack. This should create a folder containing a file <code>run.r</code> as well as several text and/or spreadsheet files. Open the script <code>run.r</code> in your preferred R editor or IDE and set R’s working directory to the newly created folder, then process <code>run.r</code> through R. Adjustable parameters of the models can be found at the top of the script.</p>
 <table>
 <thead>
