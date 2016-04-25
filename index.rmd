@@ -1,13 +1,15 @@
 ---
-title: "# Github projects of ![david.kneis at tu-dresden.de](developerEmail.gif)"
+title: "Github projects of ![david.kneis at tu-dresden.de](developerEmail.gif)"
 output:
   html_document:
     toc: true
+    toc_float:
+      collapsed: false
 ---
 
-## R package `rodeo`
+# R package `rodeo`
 
-### Basic information
+## Basic information
 [`rodeo`](http://cran.r-project.org/package=rodeo) is an add-on package for the statistical computing software [`R`](https://www.r-project.org/). It facilitates the implementation of mechanistic models built on ordinary differential equations (ODE). Its heart is a code generator whose output (Fortran95+ or R) can be passed to numerical solvers, namely those from the packages [deSolve](http://cran.r-project.org/package=deSolve) and [rootSolve](http://cran.r-project.org/package=rootSolve).
 
 The source code is managed in [this github repository](https://github.com/dkneis/rodeo). The current main documentation is the [package vignette](https://github.com/dkneis/rodeo/blob/master/vignettes/rodeo.pdf) (please save the PDF file to disk if it doesn't show up in the browser).
@@ -26,7 +28,7 @@ install_github('dkneis/rodeo')
 
 Interactive modeling examples some of which are implemented with `rodeo` are hosted [here](http://limno-live.hydro.tu-dresden.de) (maintained by TU Dresden, Institute of Hydrobiology).
 
-### Demo examples
+## Demo examples
 
 There is a collection of examples to demonstrate the functionality of `rodeo`. To try out the examples, you need a recent version of [`R`](https://www.r-project.org/) including the developer tools to compile Fortran code. I prepared a short PDF document with [minimalistic instructions](rodeoExamples/installShort.pdf). In case of problems, please consult the official [administration and installation guide](https://cran.r-project.org/doc/manuals/r-release/R-admin.html), especially the appendices.
 
@@ -37,13 +39,13 @@ Each of the download links below points to a zip archive. Save the archive to di
 | [Streeter-Phelps](rodeoExamples/streeterPhelpsLike.zip)  | The model simulates aerobic 1st-order decay of a substance in a stirred tank reactor without in-/outflow. The state variables are degradable organic matter (OM) and dissolved oxygen (DO). This is in contrast to the classical Streeter-Phelps model which considers biochemical oxygen demand, BOD, (rather than OM) and the oxygen deficit (rather than DO). The model is reduced to the very basics. It does not account for oxygen limitation, hence, it returns non-sense if the system goes anaerobic. Furthermore, the model neglects temperature dependence of micribioal activity, it does not distinguish between CBOD and NBOD, there is no interaction between water and sediment, ... |
 | [Advection-dispersion](rodeoExamples/advectionDispersion.zip) | Demonstrates the solution of a 1D partial differential equation problem by means of semi-discretization known as the [method-of-lines](https://en.wikipedia.org/wiki/Method_of_lines). The model simulates the transport of a conservative tracer along a river reach assuming steady-uniform flow (i.e. constant flow rate, uniform cross-section). The result of numerical integration is (visually) compared to a classic analytical solution. |
 
-## Other R packages
+# Other R packages
 
 The following packages are not 'officially' released and they are not uploaded on CRAN. The links direct to the respective source code repositories.
 
 * [Generic GUI for `rodeo`-based 0-dimensional models](https://github.com/dkneis/rodeoApp)
 * [Some utilities for 1D diagenetic modeling](https://github.com/dkneis/diatools)
 
-## Other software
+# Other software
 
 * The [ECHSE](http://echse.github.io/) framework for rapid development of hydrological model engines (implemented in C++).
