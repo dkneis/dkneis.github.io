@@ -27,7 +27,7 @@ Extensive help on the installation of R and related utilities can be found on \u
 Make sure that you really need to install \software{R}. If this is the case (first install or upgrade from an old version), go to \url{https://cloud.r-project.org/} and follow the download links in the box at the top of the page. Linux users probably want to use a package manager instead.
 
 \subsection{Install auxiliary tools}
-Although \software{rodeo} is not a so-called \emph{source package}, it requires the tools that are used to build those packages. This is because of \software{rodeo}'s built-in Fortran code generator. Before installing any tools, check whether this is necessary. For example, you could enter the command
+Although the \software{rodeo} package itself does not need compilation, it requires the respective compile/build tools when it is used. This is because of \software{rodeo}'s built-in Fortran code generator. Before installing any tools, check whether this is necessary. For example, you could enter the command
 
 \begin{verbatim}
 gfortran --version
@@ -72,5 +72,12 @@ install.packages(c("rodeo", "deSolve", "readxl", "lhs"))
 \end{verbatim}
 
 The installation may take some time because dependent packages are installed along with the above-mentioned ones.
+
+The latest development version of \software{rodeo} can also be installed directly from the source code repository using the \software{devtools} package.
+
+\begin{verbatim}
+library("devtools")
+install_github("dkneis/rodeo")
+\end{verbatim}
 
 \end{document}
