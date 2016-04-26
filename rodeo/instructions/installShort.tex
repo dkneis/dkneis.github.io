@@ -5,6 +5,8 @@
 \author{dkneis}
 \begin{document}
 \newcommand{\software}[1]{\texttt{#1}}
+\newcommand{\radmin}{\url{https://cran.r-project.org/doc/manuals/r-release/R-admin.html}}
+
 
 {\LARGE How to run the \software{rodeo} examples}
 
@@ -21,7 +23,7 @@ Updated \today{} by \url{david.kneis@tu-dresden.de}
 
 \section{Installation of \software{R} and auxiliary tools} \label{sec:install}
 
-Extensive help on the installation of R and related utilities can be found on \url{https://cran.r-project.org/doc/manuals/r-release/R-admin.html}. Please consult this document if the following short instructions are insufficient.
+Extensive help on the installation of R and related utilities can be found on \radmin. Please consult this document if the following short instructions are insufficient.
 
 \subsection{Install \software{R}}
 Make sure that you really need to install \software{R}. If this is the case (first install or upgrade from an old version), go to \url{https://cloud.r-project.org/} and follow the download links in the box at the top of the page. Linux users probably want to use a package manager instead.
@@ -35,22 +37,31 @@ gfortran --version
 
 at a terminal. If this succeeds, i.e. shows a version info, the required tools may already be there. Otherwise, see below:
 
-On a Linux system, one typically needs to install the GNU compiler collection, including \software{gfortran}. See the section 'Essential and useful other programs under a Unix-alike' on the web page mentioned at the top of Sec.~\ref{sec:install}.
+On a Linux system, one typically needs to install the GNU compiler collection, including \software{gfortran}. See the section 'Essential and useful other programs under a Unix-alike' on \radmin.
 
-Windows users need to install the so-called \software{Rtools} from \url{https://cran.r-project.org/bin/windows/Rtools}. Chose the version that is compatible with the installed \software{R} version. Please read the section 'The-Windows-toolset' (currently appendix D) on the web page mentioned at the top of Sec.~\ref{sec:install} to circumvent typical pitfalls during and after installation. I recommend to install into a directory whose name does not contain blanks. If the automatic installer has an option to edit the PATH environment variable, let it do so. 
+Windows users need to install the so-called \software{Rtools} from \url{https://cran.r-project.org/bin/windows/Rtools}. Chose the version that is compatible with the installed \software{R} version. Please read the section 'The-Windows-toolset' (currently appendix D) on \radmin{} to circumvent typical pitfalls during and after installation. I recommend to install into a directory whose name does not contain blanks. If the automatic installer has an option to edit the PATH environment variable, let it do so. 
 
-\section{After the installation}
+\section{After the installation} \label{sec:postInstall}
 
 On Windows, make sure that the directory with the \software{Rtools} is listed at the very beginning of your PATH environment variable. The installation folder of \software{R} itself should also be included in PATH.
 
 The two commands
 
 \begin{verbatim}
+R CMD SHLIB --help
 gfortran --help
-R --help
 \end{verbatim}
 
-should work now when entered in a shell.
+should work now when entered in a terminal, e.g. \software{bash} (on Linux) or \software{CMD} on Windows. If these commands don't work, please check whether
+\begin{itemize}
+  \item the necessary software (Sect. \ref{sec:install}) was actually installed.
+  \item the installation directories are properly listed in the PATH variable. Please make sure that
+	\begin{itemize}
+	  \item the listed paths do actually exist in the file system.
+	  \item the order of the paths is the same as recommended in section 'The-Windows-toolset' (currently appendix D) of \radmin.
+	  
+	\end{itemize}  
+\end{itemize}
 
 \section{Installation of \software{R}-packages}
 
