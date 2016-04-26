@@ -224,7 +224,7 @@ install_github('dkneis/rodeo')</code></pre>
 </div>
 <div id="demo-examples" class="section level2">
 <h2>Demo examples</h2>
-<p>There is a collection of examples to demonstrate the functionality of <code>rodeo</code>. To try out the examples, you need a recent version of <a href="https://www.r-project.org/"><code>R</code></a> including the developer tools to compile Fortran code. I prepared a short PDF document with <a href="rodeoExamples/installShort.pdf">minimalistic instructions</a>. In case of problems, please consult the official <a href="https://cran.r-project.org/doc/manuals/r-release/R-admin.html">administration and installation guide</a>, especially the appendices.</p>
+<p>There is a collection of examples to demonstrate the functionality of <code>rodeo</code>. To try out the examples, you need a recent version of <a href="https://www.r-project.org/"><code>R</code></a> including the developer tools to compile Fortran code. I prepared a short PDF document with <a href="rodeo/instructions/installShort.pdf">minimalistic instructions</a>. In case of problems, please consult the official <a href="https://cran.r-project.org/doc/manuals/r-release/R-admin.html">administration and installation guide</a>, especially the appendices.</p>
 <p>Each of the download links below points to a zip archive. Save the archive to disk and unpack. This should create a folder containing a file <code>run.r</code> as well as several text and/or spreadsheet files. Open the script <code>run.r</code> in your preferred R editor or IDE and set R’s working directory to the newly created folder, then process <code>run.r</code> through R. Adjustable parameters of the models can be found at the top of the script.</p>
 <table>
 <thead>
@@ -235,11 +235,11 @@ install_github('dkneis/rodeo')</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="rodeoExamples/streeterPhelpsLike.zip">Streeter-Phelps</a></td>
+<td align="left"><a href="rodeo/exampleArchives/streeterPhelpsLike.zip">Streeter-Phelps</a></td>
 <td align="left">The model simulates aerobic 1st-order decay of a substance in a stirred tank reactor without in-/outflow. The state variables are degradable organic matter (OM) and dissolved oxygen (DO). This is in contrast to the classical Streeter-Phelps model which considers biochemical oxygen demand, BOD, (rather than OM) and the oxygen deficit (rather than DO). The model is reduced to the very basics. It does not account for oxygen limitation, hence, it returns non-sense if the system goes anaerobic. Furthermore, the model neglects temperature dependence of micribioal activity, it does not distinguish between CBOD and NBOD, there is no interaction between water and sediment, …</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="rodeoExamples/advectionDispersion.zip">Advection-dispersion</a></td>
+<td align="left"><a href="rodeo/exampleArchives/advectionDispersion.zip">Advection-dispersion</a></td>
 <td align="left">Demonstrates the solution of a 1D partial differential equation problem by means of semi-discretization known as the <a href="https://en.wikipedia.org/wiki/Method_of_lines">method-of-lines</a>. The model simulates the transport of a conservative tracer along a river reach assuming steady-uniform flow (i.e. constant flow rate, uniform cross-section). The result of numerical integration is (visually) compared to a classic analytical solution.</td>
 </tr>
 </tbody>
