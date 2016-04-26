@@ -32,7 +32,7 @@ Interactive modeling examples some of which are implemented with `rodeo` are hos
 
 There is a collection of examples to demonstrate the functionality of `rodeo`. To try out the examples, you need a recent version of [`R`](https://www.r-project.org/) including the developer tools to compile Fortran code. I prepared a short PDF document with [minimalistic instructions](rodeo/instructions/installShort.pdf). In case of problems, please consult the official [administration and installation guide](https://cran.r-project.org/doc/manuals/r-release/R-admin.html), especially the appendices.
 
-Each of the download links below points to a zip archive. Save the archive to disk and unpack. This should create a folder containing a file `run.r` as well as several text and/or spreadsheet files. Open the script `run.r` in your preferred R editor or IDE and set R's working directory to the newly created folder, then process `run.r` through R. Adjustable parameters of the models can be found at the top of the script.
+Each of the download links below points to a zip archive. Save the archive to a directory whose name does **not contain white space**, then unpack. This should create a folder containing a file `run.r` as well as several text and/or spreadsheet files. Open the script `run.r` in your preferred R editor or IDE and set R's working directory to the newly created folder, then process `run.r` through R. Adjustable parameters of the models can be found at the top of the script.
 
 | Download | Description |
 |---|---|
