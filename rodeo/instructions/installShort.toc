@@ -1,5 +1,5 @@
-\contentsline {section}{\numberline {1}Installation of \texttt {R} and auxiliary tools}{1}
-\contentsline {subsection}{\numberline {1.1}Install \texttt {R}}{1}
-\contentsline {subsection}{\numberline {1.2}Install auxiliary tools}{1}
-\contentsline {section}{\numberline {2}After the installation}{2}
-\contentsline {section}{\numberline {3}Installation of \texttt {R}-packages}{2}
+\contentsline {section}{\numberline {1}Installation of \texttt {R} and auxiliary tools}{1}{section.1}
+\contentsline {subsection}{\numberline {1.1}Install \texttt {R}}{1}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Install auxiliary tools}{1}{subsection.1.2}
+\contentsline {section}{\numberline {2}After the installation}{2}{section.2}
+\contentsline {section}{\numberline {3}Installation of \texttt {R}-packages}{2}{section.3}

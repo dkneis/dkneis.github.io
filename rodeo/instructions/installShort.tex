@@ -2,6 +2,15 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{url}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, % make the links colored
+    linkcolor=blue, % color TOC links in blue
+    urlcolor=red, % color URLs in red
+    linktoc=all % 'all' will create links for everything in the TOC
+}
+
 \author{dkneis}
 \begin{document}
 \newcommand{\software}[1]{\texttt{#1}}
@@ -39,29 +48,43 @@ at a terminal. If this succeeds, i.e. shows a version info, the required tools m
 
 On a Linux system, one typically needs to install the GNU compiler collection, including \software{gfortran}. See the section 'Essential and useful other programs under a Unix-alike' on \radmin.
 
-Windows users need to install the so-called \software{Rtools} from \url{https://cran.r-project.org/bin/windows/Rtools}. Chose the version that is compatible with the installed \software{R} version. Please read the section 'The-Windows-toolset' (currently appendix D) on \radmin{} to circumvent typical pitfalls during and after installation. I recommend to install into a directory whose name does not contain blanks. If the automatic installer has an option to edit the PATH environment variable, let it do so. 
+Windows users need to install the so-called \software{Rtools} from \url{https://cran.r-project.org/bin/windows/Rtools}. Chose the version that is compatible with the installed \software{R} version. Please read the section 'The-Windows-toolset' (currently appendix D) on \radmin{} to circumvent typical pitfalls during and after installation. In particular, I recommend to
+\begin{itemize}
+  \item install into a directory whose name does not contain blanks.
+  \item let the automatic installer edit the PATH environment variable (if the option is there). 
+\end{itemize}
 
 \section{After the installation} \label{sec:postInstall}
 
-On Windows, make sure that the directory with the \software{Rtools} is listed at the very beginning of your PATH environment variable. The installation folder of \software{R} itself should also be included in PATH.
+On Windows, make sure that the directories where \software{R} and the \software{Rtools}  were installed are \textbf{actually} included in your PATH environment variable. In addition, the order in which the directories are listed is \textbf{essential} as pointed out in section 'The-Windows-toolset' of \radmin{} (currently appendix D). For example, on a Windows 8 system, the first 3 entries of the PATH variable should be (in that order):
 
-The two commands
+\begin{verbatim}
+C:\myPrograms\Rtools\bin
+C:\myPrograms\Rtools\gcc-4.6.3\bin
+C:\myPrograms\R\R-3.2.5\bin
+\end{verbatim}
+
+\noindent assuming that you both \software{R} and \software{Rtools} were installed to a custom folder \verb|myPrograms|. The shown version numbers are/were up-to-date on 2016-04-26.
+
+There are several ways to check the contents of the PATH variable on Windows:
+
+\begin{itemize}
+  \item type \verb|Sys.getenv("PATH")| at the \software{R} prompt.
+  \item type \verb|echo %PATH%| into a \software{CMD} terminal (the \software{DOS}-like black box).
+  \item navigate to the jungle of control settings until you hopefully find the menu item where you can view/edit environment variables. The place differs between versions of Windows.
+\end{itemize}
+
+In order to \textbf{permanently} edit the PATH variable, you probably need to find and use the respective menu. Note that changes to the PATH variable will not instantly be visible/active in other programs (e.g. \software{R}, \software{CMD}). Before you can see/use the altered PATH settings, you need to restart those programs.
+
+\medskip
+\noindent If everything was set up properly, the two commands
 
 \begin{verbatim}
 R CMD SHLIB --help
 gfortran --help
 \end{verbatim}
 
-should work now when entered in a terminal, e.g. \software{bash} (on Linux) or \software{CMD} on Windows. If these commands don't work, please check whether
-\begin{itemize}
-  \item the necessary software (Sect. \ref{sec:install}) was actually installed.
-  \item the installation directories are properly listed in the PATH variable. Please make sure that
-	\begin{itemize}
-	  \item the listed paths do actually exist in the file system.
-	  \item the order of the paths is the same as recommended in section 'The-Windows-toolset' (currently appendix D) of \radmin.
-	  
-	\end{itemize}  
-\end{itemize}
+\noindent should show some usage info when entered in a \software{CMD} terminal on Windows (or \software{bash} on Linux).
 
 \section{Installation of \software{R}-packages}
 
