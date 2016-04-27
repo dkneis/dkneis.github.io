@@ -38,43 +38,53 @@ Extensive help on the installation of R and related utilities can be found on \r
 Make sure that you really need to install \software{R}. If this is the case (first install or upgrade from an old version), go to \url{https://cloud.r-project.org/} and follow the download links in the box at the top of the page. Linux users probably want to use a package manager instead.
 
 \subsection{Install auxiliary tools}
-Although the \software{rodeo} package itself does not need compilation, it requires the respective compile/build tools when it is used. This is because of \software{rodeo}'s built-in Fortran code generator. Before installing any tools, check whether this is necessary. For example, you could enter the command
-
-\begin{verbatim}
-gfortran --version
-\end{verbatim}
-
-at a terminal. If this succeeds, i.e. shows a version info, the required tools may already be there. Otherwise, see below:
+Although the \software{rodeo} package itself does not need compilation, it requires the respective compile/build tools when it is used. This is because of \software{rodeo}'s built-in Fortran code generator. Before installing any tools, check whether a current version is already installed.
 
 On a Linux system, one typically needs to install the GNU compiler collection, including \software{gfortran}. See the section 'Essential and useful other programs under a Unix-alike' on \radmin.
 
 Windows users need to install the so-called \software{Rtools} from \url{https://cran.r-project.org/bin/windows/Rtools}. Chose the version that is compatible with the installed \software{R} version. Please read the section 'The-Windows-toolset' (currently appendix D) on \radmin{} to circumvent typical pitfalls during and after installation. In particular, I recommend to
 \begin{itemize}
   \item install into a directory whose name does not contain blanks.
-  \item let the automatic installer edit the PATH environment variable (if the option is there). 
+  \item let the automatic installer edit the PATH environment variable, if the option is there. This may fail, however, if you don't have administrator privileges (Sect. to \ref{sec:postInstall} describes a solution for that case).
 \end{itemize}
 
 \section{After the installation} \label{sec:postInstall}
 
-On Windows, make sure that the directories where \software{R} and the \software{Rtools}  were installed are \textbf{actually} included in your PATH environment variable. In addition, the order in which the directories are listed is \textbf{essential} as pointed out in section 'The-Windows-toolset' of \radmin{} (currently appendix D). For example, on a Windows 8 system, the first 3 entries of the PATH variable should be (in that order):
-
-\begin{verbatim}
-C:\myPrograms\Rtools\bin
-C:\myPrograms\Rtools\gcc-4.6.3\bin
-C:\myPrograms\R\R-3.2.5\bin
-\end{verbatim}
-
-\noindent assuming that both \software{R} and \software{Rtools} were installed to a custom folder \verb|myPrograms|. The shown version numbers are/were up-to-date on 2016-04-26.
+On Windows, make sure that the directories where \software{R} and the \software{Rtools}  were installed are \textbf{actually} included in your PATH environment variable. In addition, the order in which the directories are listed is \textbf{essential} as pointed out in section 'The-Windows-toolset' of \radmin{} (currently appendix D).
 
 There are several ways to check the contents of the PATH variable on Windows:
 
 \begin{itemize}
   \item type \verb|Sys.getenv("PATH")| at the \software{R} prompt.
   \item type \verb|echo %PATH%| into a \software{CMD} terminal (the \software{DOS}-like black box).
-  \item navigate to the jungle of control settings until you hopefully find the menu item where you can view/edit environment variables. The place differs between versions of Windows.
+  \item find the menu item to view/edit environment variables. The place differs between versions of Windows. Even worse, the menu can be accessed in different ways and only one way appears to work without administrator privileges. As a normal user on Windows 7 go to: \textbf{Control panel} $\rightarrow$ \textbf{User accounts} $\rightarrow$ \textbf{User accounts} $\rightarrow$ \textbf{Change my environment variables}.
 \end{itemize}
 
-In order to \textbf{permanently} edit the PATH variable, you probably need to find and use the respective menu. Note that changes to the PATH variable will not instantly be visible/active in other programs (e.g. \software{R}, \software{CMD}). Before you can see/use the altered PATH settings, you need to restart those programs.
+\noindent Note that only the last option (i.e. the menu) can be used to \textbf{permanently edit} the PATH variable. As a normal user, you can only create/edit the user-variable PATH (and not the system-variable of the same name). Also note that changes to the PATH variable will not instantly be visible/active in other programs (e.g. \software{R}, \software{CMD}). Before you can see/use the altered PATH settings, you need to restart those programs.
+
+Below you can find two examples for the contents of the PATH variable. The shown version numbers were up-to-date on 2016-04-26.
+
+\bigskip
+\textsl{Example on Windows 10, installed \textbf{with} administrator privileges}
+
+\begin{verbatim}
+C:\myPrograms\Rtools\bin;
+C:\myPrograms\Rtools\gcc-4.6.3\bin;
+C:\myPrograms\R\R-3.2.5\bin
+\end{verbatim}
+
+\bigskip\textsl{Example on Windows 7, installed \textbf{without} administrator privileges}
+
+\begin{verbatim}
+C:\Windows\System32;
+C:\Windows;
+  <several other system direcories>
+C:\Users\myName\Documents\Rtools\bin;
+C:\Users\myName\Documents\Rtools\gcc-4.6.3\bin;
+C:\Users\myName\Documents\R\R-3.2.5\bin
+\end{verbatim}
+
+\noindent In the latter example, the system-variables seem to precede the user-variables. Nevertheless, things work fine.
 
 \medskip
 \noindent If everything was set up properly, the two commands
