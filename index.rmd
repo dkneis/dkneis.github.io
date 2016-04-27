@@ -32,12 +32,37 @@ Interactive modeling examples some of which are implemented with `rodeo` are hos
 
 There is a collection of examples to demonstrate the functionality of `rodeo`. To try out the examples, you need a recent version of [`R`](https://www.r-project.org/) including the developer tools to compile Fortran code. I prepared a short PDF document with [minimalistic instructions](rodeo/instructions/installShort.pdf). In case of problems, please consult the official [administration and installation guide](https://cran.r-project.org/doc/manuals/r-release/R-admin.html), especially the appendices.
 
-Each of the download links below points to a zip archive. Save the archive to a directory whose name does **not contain white space**, then unpack. This should create a folder containing a file `run.r` as well as several text and/or spreadsheet files. Open the script `run.r` in your preferred R editor or IDE and set R's working directory to the newly created folder, then process `run.r` through R. Adjustable parameters of the models can be found at the top of the script.
+```{r, echo=FALSE, eval=TRUE}
+# Define published examples; extend the list to add more examples contained in the rodeo/(inst/)examples
+  examples= list(
+    list(file="streeterPhelpsLike", label="Streeter-Phelps"),
+    list(file="advectionDispersion", label="Advection-Dispersion")
+  )
+  archiveDir= "rodeo/exampleArchives"
+```
 
-| Download | Description |
-|---|---|
-| [Streeter-Phelps](rodeo/exampleArchives/streeterPhelpsLike.zip)  | `r readLines(system.file("examples/streeterPhelpsLike/README.txt",package="rodeo"))` |
-| [Advection-dispersion](rodeo/exampleArchives/advectionDispersion.zip) | `r readLines(system.file("examples/advectionDispersion/README.txt",package="rodeo"))` |
+```{r, echo=FALSE, eval=TRUE}
+# This creates the downloadable archive files
+for (i in 1:length(examples)) {
+  archive= paste0(archiveDir,"/",examples[[i]]$file,".zip")
+  if (file.exists(archive)) 
+    file.remove(archive)
+  system(paste0("zip -r -j ",archive," ", system.file(paste0("examples/",examples[[i]]$file), package="rodeo")))
+}
+```
+
+```{r, echo=FALSE, eval=TRUE}
+tableOfExamples="| Download | Description |\n|---|---|\n"
+for (i in 1:length(examples)) {
+  archive= paste0(archiveDir,"/",examples[[i]]$file,".zip")
+  descr= readLines(system.file(paste0("examples/",examples[[i]]$file,"/README.txt"),package="rodeo"))
+  tableOfExamples= paste0(tableOfExamples,"[",examples[[i]]$label,"](",archive,") | ",descr," |\n")
+}
+```
+
+Each of the download links below points to a zip archive. Save the archive to a directory whose name does **not contain white space**, then unpack. This should create a folder containing a file `run.r` as well as several text and/or spreadsheet files. Open the script `run.r` in your preferred R editor or IDE and set R's working directory to the newly created folder, then process `run.r` through R. Adjustable parameters of the models can be found at the top of each script.
+
+`r tableOfExamples`
 
 # Other R packages
 
