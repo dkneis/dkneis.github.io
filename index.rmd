@@ -12,21 +12,20 @@ output:
 ## Basic information
 [`rodeo`](http://cran.r-project.org/package=rodeo) is an add-on package for the statistical computing software [`R`](https://www.r-project.org/). It facilitates the implementation of mechanistic models built on ordinary differential equations (ODE). Its heart is a code generator whose output (Fortran95+ or R) can be passed to numerical solvers, namely those from the packages [deSolve](http://cran.r-project.org/package=deSolve) and [rootSolve](http://cran.r-project.org/package=rootSolve).
 
-The source code is managed in [this github repository](https://github.com/dkneis/rodeo). The current main documentation is the vignette file in PDF format. It can be viewed or downloaded [directly from here](https://github.com/dkneis/rodeo/raw/master/vignettes/rodeo.pdf). If the PDF file does not show up in the browser, please save it to disk first or try to [view it via google docs](https://docs.google.com/viewer?url=https://github.com/dkneis/rodeo/raw/master/vignettes/rodeo.pdf).
+The extended documentation for the package (vignette in PDF format) is available for [download](https://github.com/dkneis/rodeo/raw/master/vignettes/rodeo.pdf) here and it can also be [viewed](https://docs.google.com/viewer?url=https://github.com/dkneis/rodeo/raw/master/vignettes/rodeo.pdf) via google docs. An introductive presentation (PDF file) is provided at [this link](rodeo/presentations/seminarSIAM_20160503.pdf). Interactive modeling examples some of which are implemented with `rodeo` are hosted [here](http://limno-live.hydro.tu-dresden.de) (maintained by TU Dresden, Institute of Hydrobiology).
 
-A release version or `rodeo` is available on [CRAN](http://cran.r-project.org/package=rodeo) and can be installed with
+The current release version of `rodeo` is on [CRAN](http://cran.r-project.org/package=rodeo) and can be installed as usual.
 
 ```{r, eval=FALSE, echo=TRUE}
 install.packages('rodeo')
 ```
-To install the latest development version instead, one can use
+
+The latest development version is available in the project's [source code repository](https://github.com/dkneis/rodeo). It can be installed as follows:
 
 ```{r, eval=FALSE, echo=TRUE}
 library('devtools')
 install_github('dkneis/rodeo')
 ```
-
-Interactive modeling examples some of which are implemented with `rodeo` are hosted [here](http://limno-live.hydro.tu-dresden.de) (maintained by TU Dresden, Institute of Hydrobiology).
 
 ## Demo examples
 
