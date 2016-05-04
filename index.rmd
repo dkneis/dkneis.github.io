@@ -41,6 +41,7 @@ There is a collection of examples to demonstrate the functionality of `rodeo`. T
   archiveDir= "rodeo/exampleArchives"
 ```
 
+
 ```{r, echo=FALSE, eval=TRUE}
 # This creates the downloadable archive files
 for (i in 1:length(examples)) {
@@ -50,6 +51,7 @@ for (i in 1:length(examples)) {
   system(paste0("zip -r -j ",archive," ", system.file(paste0("examples/",examples[[i]]$file), package="rodeo")))
 }
 ```
+
 
 ```{r, echo=FALSE, eval=TRUE}
 tableOfExamples="| Download | Description |\n|---|---|\n"
