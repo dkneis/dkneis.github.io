@@ -1,0 +1,359 @@
+---
+title: "Minimalistic guide to sensitivity analysis"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+---
+# Introduction
+Assume that we have a model requiring a set of numerical parameters as input. This document explains how to study the model's sensitivity with respect to these parameters. The described methodology is rather universal in the following senses:
+
+  - It can be used to study *global* or *local* sensitivity.
+  
+  - No assumptions are made with respect to the model's output. Typical model outputs are:
+  
+      - time series of state variables or process rates.
+
+      - values of state variables in steady-state.
+      
+      - indicators of the goodness-of-fit (e.g. RMSE) if the model output is compared to observed data. In this case, we do not study the sensitivity of the model itself. We rather look at the sensitivity of an objective function which depends on the model.
+      
+Generally, in order to study sensitvity, we
+
+ (1) first create a number of parameter sets, covering the region of interest,
+ 
+ (2) run the model for all these sets,
+
+ (2) finally analyze the output.
+
+As an example, we consider the logistic growth model with the two parameters `r` (max. growth rate) and `K` (carrying capacity). The only state variable in this model is the abundance/concentrations or the considered species (`y`). The underlying differential equation `dy/dt = r * y * (1 - y/K)` can be solved either analytically or numerically. In this document we use the analytical version for the sake of simplicity.
+
+```{r logistic, eval=TRUE, echo=TRUE, fig.height=4, fig.width=4}
+
+# Differential equation (in the form required by 'deSolve')
+logist_deriv <- function(t, y, p) {
+  list(c(p["r"] * y[1] * (1 - y[1]/p["K"])))
+}
+
+# Analytical solution for t0=0
+logist <- function (p, t) {
+  cbind(time= t, y= p["K"] / (1 + exp(-p["r"]*t) * (p["K"] - p["y0"]) / p["y0"]))
+}
+
+# Times of interest, parameters, initial value
+times <- seq(0, 10, 0.1)
+p <- c(r=2, K=100)
+y0 <- 1
+
+library("deSolve", warn.conflicts=FALSE)
+num <- ode(times, y=c(y=y0), func=logist_deriv, parms=p)
+ana <- logist(c(p, y0=y0), times)
+plot(ana[,"time"], ana[,"y"], xlab="Time", ylab="y")
+lines(num[,"time"], num[,"y"])
+legend("bottomright", bty="n", pch=c(1,NA), lty=c(NA,1), legend=c("Analytical","Numerical"))
+```
+
+# Creation of parameter sets
+## General layout
+For a model with `nPars` parameters, a single parameter set is just a vector of length `nPars`. If we want to analyze the model's output for multiple parameter sets, all input values can be stored in a matrix of size `nSets` * `nPars`. It is convenient to organize the parameters in columns so that each row defines an individual parameter set. This is because, typically, `nSets` >> `nPars`. With regard to the example model, a parameter sample could look like
+
+```{r, eval=TRUE, echo=FALSE}
+m <- matrix(cbind(c(0.5, 0.5, 1, 1), c(10, 100, 10, 100)), ncol=2, dimnames=list(NULL, c("r","K")))
+m
+```
+
+## Sampling methods
+
+### Grid sampling
+Grid sampling means that, for every parameter, a fixed set of values is considered. Unfortunately, grid sampling only works for simple problems, i.e. small `nPars` together with a fast-running model. For example, in a situation with only 3 parameters and 5 test values each, the grid sample already has size `5 ^ 3 = 125`. A straightforward way to create a grid sample is
+
+```{r samplingGrid, eval=TRUE, echo=TRUE}
+sets <- expand.grid(r=c(0.1, 0.5, 1), K=c(10, 100, 1000))
+sets <- as.matrix(sets)
+print(head(sets))
+```
+
+### Random sampling from uniform distributions
+As the number of parameters `nPars` becomes larger, random sampling is the way to go. If there is no prior information about the values of parameters, it makes sense to start with sampling from uniform distributions. A naive sample could be created with
+
+```{r samplingUniformNaive, eval=TRUE, echo=TRUE}
+# Not recommended
+nSets <- 100
+sets <- cbind(
+  r=runif(n=nSets, min=0.1, max=1),
+  K=runif(n=nSets, min=10, max=1000)
+)
+print(head(sets))
+```
+
+but the resulting multi-dimensional sample is suboptimal with respect to coverage of the parameter space. You better to use a strategy known as Latin Hypercube sampling:
+
+```{r samplingUniform, eval=TRUE, echo=TRUE}
+# Package for latin hypercube sampling
+if (! "lhs" %in% installed.packages()[,"Package"])
+  install.packages("lhs")
+library("lhs")
+# Define sampling ranges
+ranges <- rbind(
+  r= c(min=0.1, max=1),
+  K= c(min=10, max=1000)
+)
+# Draw sample
+nPars <- nrow(ranges)
+nSets <- 500
+sets <- lhs::improvedLHS(n=nSets, k=nPars)
+colnames(sets) <- rownames(ranges)
+# Apply ranges
+for (i in 1:nrow(ranges))
+  sets[,i] <- ranges[i,"min"] + sets[,i] * (ranges[i,"max"] - ranges[i,"min"])
+print(head(sets))
+```
+
+### Random sampling from multi-variate normal distribution
+Prior knowledge on parameters may be available in the form of
+
+  - regions of likely / unlikely values for individual parameters, and
+  
+  - known correlations of parameters.
+  
+In those situations, we need to draw samples from some adequate distribution(s). The following example demonstrates how to sample from a multi-variate normal distribution. Here, it is assumed that off-diagonal elements of the covariance matrix are zero (hence, one could actually sample the parameters individually).
+
+```{r samplingNormal, eval=TRUE, echo=TRUE}
+# Package for multi-variate t/gaussian sampling
+if (! "mvtnorm" %in% installed.packages()[,"Package"])
+  install.packages("mvtnorm")
+library("mvtnorm")
+# Parameters of individual distributions
+distr <- rbind(
+  r=c(mean=0.5, sd=0.2),
+  K=c(mean=100, sd=100)
+)
+# Covariance matrix - independent distributions assumed here
+nPars <- nrow(distr)
+sigma <- diag(x=(distr[,"sd"])^2, nrow=nPars)
+# Creation of sample
+nSets <- 1000
+sets <- rmvnorm(n=nSets, mean=distr[,"mean"], sigma=sigma)
+print(head(sets))
+```
+
+## Dealing with non-independent parameters
+
+There are cases where the values of particular parameters cannot be sampled independently. For example, a reservoir may be described by two parameters `Cmin` and `Cmax` representing the minimum and maximum storage capacity, respectively. In order to satisfy the obvious constraint `Cmin < Cmax` one can re-define one of the parameters, e.g. `Cmin = frac * Cmax`. Then, sampling is done for `frac` and `Cmax` rather than directly for `Cmin` and `Cmax`. 
+
+## Saving and loading a sample
+
+It is often a good idea to save sampled parameter sets in a file for later analysis or reference. This is best done using the methods designed for data frames:
+
+```{r saveLoad, eval=TRUE, echo=TRUE, results='hide'}
+# Save
+f <- tempfile()
+write.table(as.data.frame(sets), file=f, sep="\t", col.names=TRUE, row.names=FALSE)
+# Re-load
+sets <- as.matrix(read.table(file=f, header=TRUE, sep="\t"))
+```
+
+# Wrapping the model
+It is generally useful to 'wrap' the model in a dedicated function before processing the parameter sets. There are two reasons:
+
+  1. Quite __often__, generated parameter samples contain some 'problematic' parameter sets making the model crash (e.g. due to division by zero, stiffness of the ODE system, ...). Those exceptions need to be handled properly if we don't want the entire sensitivity analysis to fail.
+  
+  2. In __rare__ cases, the structure of model output (e.g. data type or dimensions) depends on the input, i.e. values of parameters. Then, special care is necessary when saving the output of multiple model runs in a single object with a given type and dimension (such as a numeric array).
+
+The wrapper function below addresses the two issues.
+
+```{r wrapperFun, eval=TRUE, echo=TRUE}
+wrapper <- function(p, fn, ...) {
+  out <- NULL
+  tryCatch({
+    out <- fn(p, ...)
+  }, error= function(x) {
+    out <<- as.character(x)
+  }, warning= function(x) {
+    out <<- as.character(x)
+  })
+  return(list(out))
+}
+```
+
+First, the model (passed as function `fn`) is called within a `tryCatch` construct. The respective error/warning handlers make sure that exceptions within `fn` don't cause an interrupt and the returned value is easily recognizeable as denormal (e.g. a character string with a message). Second, the wrapper always returns a list (with just a single element). Through this, we can rely on the fact that a call like
+
+```{r, eval=FALSE, echo=TRUE}
+out <- apply(X=sets, MARGIN=1, FUN=wrapper, fn=model)
+```
+
+always returns a list too (which is not necessarily so, otherwise). Strictly speaking, the just shown call to `apply` returns a __list of lists__ where
+
+ - the *outer* list one has as many elements as there are parameter sets and
+ 
+ - the *inner* lists (all of length 1) store the output of the individial model runs.
+
+The wrapper should be accompanied by a utility function to distinguish between valid and invalid result. If we assume that the normal output is some numeric object but an error message otherwise, the following would suffice
+
+```{r checkFun, eval=TRUE, echo=TRUE}
+isValid <- function(x) {!is.character(unlist(x))}
+```
+
+but more sophisticated functions for diagnosis can be written like, e.g.
+
+```{r diagnosisFun, eval=TRUE, echo=TRUE}
+diagnosis <- function(x) {
+  x <- unlist(x)
+  if (is.character(x)) x else paste("Object of length",length(x))
+}
+```
+
+# Processing of parameter sets
+
+## General principles
+
+### Use of `apply` or `parRapply`
+Since we have all parameter sets stored in a matrix (as described above), the straightforward way to run a model on all those sets is through `apply` like so:
+
+```{r eval=FALSE, echo=TRUE}
+out <- apply(X=sets, MARGIN=1, FUN=wrapper, fn=model)
+```
+
+Note that the wrapper function is passed to formal argument `FUN` whereas the actual model is passed as the additional argument `fn`. In each call, the wrapper (and thus the model) is feed with a particular row of the matrix of parameter sets (actual argument `sets`).
+
+If this is supported by the hardware, the parameter sets can easily be processed in parallel. For slow-running models, this can significantly speed up the sensitivity analysis. If the computation time of the model is negligible, parallelization usually does not pay out. It can even be counterproductive if the creation of multiple threads takes more time than is saved by parallel job execution.
+
+```{r, eval=FALSE, echo=TRUE}
+library("parallel")
+cl <- makeCluster(getOption("cl.cores", 2))
+out <- parRapply(cl=cl, x=sets, FUN=wrapper, fn=model)
+stopCluster(cl)
+```
+
+In the examples below we use serial processing (i.e. `apply`) for simplicity. This is not a concern since the analytical formulation of the logistic growth model is really fast. 
+
+### Handling of the output
+
+As mentioned above, we generally obtain the results as a __list of lists__. It is usually convenient to convert the latter into a more compact structure (e.g. an array) for further processing. Before such a conversion, one needs to sort out corrupted results using the dedicated 'validation function' defined along with the wrapper. It may also be necessary to check whether all valid model outputs are of the same type/dimension.
+
+## Case A: Analysis of full model output
+
+In this example we store the full model output for each parameter set. This makes sense if  one wants to explore the results in various ways without re-executing the model for every analysis (e.g. because model runs consume a significant amout of time). It is necessary, however, to estimate the amount of output data before doing the analysis. Otherwise you will likely explore the machine's limits with respect to memory or disk-space.
+
+```{r, eval=TRUE, echo=TRUE, fig.height=3}
+# Creation of parameter sets
+sample <- as.matrix(expand.grid(r=c(0.1, 0.5, 1), K=c(10, 100, 200), y0=c(0.1, 0.2)))
+
+# Time range of interest
+times <- seq(0, 30, 0.1)
+
+# Run model for all parameter sets
+out <- apply(X=sample, MARGIN=1, FUN=wrapper, fn=logist, t=times)
+
+# Check success
+print(cbind(as.data.frame(sample), VALID_RESULT=sapply(out, isValid)))
+
+# Filter inputs AND outputs for valid results
+keep <- which(sapply(out, isValid))
+sample <- sample[keep, ]  # Filter parameter sets
+out <- out[keep]          # Filter results
+
+# Convert list-of-lists into multi-way array
+# Notes: This assumes that all valid model outputs are matrices of equal dimension
+#  with common column names. The resulting array has 3 dimensions.
+#  Index 1: Time step index
+#  Index 2: Column index of model output
+#  Index 3: Index of parameter set
+numRows <- nrow(out[[1]][[1]])
+numCols <- ncol(out[[1]][[1]])
+namesOfCols <- colnames(out[[1]][[1]])
+out <- array(sapply(out, unlist), dim=c(numRows, numCols, length(out)),
+  dimnames=list(paste0("timeStep",1:numRows), namesOfCols, paste0("paramSet",keep)))
+
+# Plot all outputs
+plot(x=range(out[,"time",]), y=range(out[,"y",]), type="n", xlab="Time", ylab="y")
+for (i in 1:dim(out)[3])
+  lines(out[,"time",i], out[,"y",i], col=i)
+```
+
+## Case B: Analysis of scalar quantities of interest
+
+Often, one is interested in the sensitivity of a particular model output or a derived quantity such as the goodness-of-fit. In those cases one should store only that quantity of interest (rather than the model's full output). The example below analyzes the error of the model simulation with respect to a fictive data set.
+
+```{r, eval=TRUE, echo=TRUE}
+# Latin hypercube sample
+ranges <- rbind(
+  r= c(min=0.1, max=1),
+  K= c(min=10, max=200),
+  y0= c(min=0.1, max=0.2)
+)
+nPars <- nrow(ranges)
+nSets <- 1000
+sample <- lhs::improvedLHS(n=nSets, k=nPars)
+colnames(sample) <- rownames(ranges)
+for (i in 1:nrow(ranges))
+  sample[,i] <- ranges[i,"min"] + sample[,i] * (ranges[i,"max"] - ranges[i,"min"])
+
+# A fictive set of observations
+times <- c(0, 5, 10, 20, 30)
+obs <- c(0.15, 1.8, 18, 90, 100)
+
+# Goodness-of-fit function (Nash-Sutcliffe Index, a rescaled MSE)
+gof <- function(p, times, obs) {
+  1 - mean((logist(p=p, t=times) - obs)^2) / var(obs)
+}
+
+# Run model for all parameter sets
+out <- apply(X=sample, MARGIN=1, FUN=wrapper, fn=gof, times=times, obs=obs)
+
+# Filter inputs AND outputs for valid results
+keep <- which(sapply(out, isValid))
+sample <- sample[keep, ]  # Filter parameter sets
+out <- out[keep]          # Filter results
+
+# Convert list-of-lists into vector
+# Notes: This assumes that all valid model outputs are numeric scalars.
+out <- sapply(out, unlist)
+```
+
+As a first step of data exploration, one can plot the quantity of interest against the values of the individual parameters. Essentially, this visualizes the marginal distributions.
+
+```{r, eval=TRUE, echo=TRUE, fig.height=3}
+# Plot marginal distributions
+layout(matrix(1:ncol(sample), nrow=1))
+for (i in 1:ncol(sample))
+  plot(sample[,i], out, xlab=colnames(sample)[i],
+    ylab="G-O-F", pch=20, col="grey")
+```
+```{r, eval=TRUE, echo=FALSE}
+layout(1)
+```
+
+Another option is to plot the quantity of interest on 2-dimensional planes in parameter space. Ideally, this helps to understand the combined effect of two parameters.
+
+```{r, eval=TRUE, echo=TRUE, fig.height=3}
+# Function to translate numeric value to color code
+colorFun <- function(x) {
+  breaks <- seq(0, 1, 0.05)
+  codes <- colorRampPalette(c("steelblue2", "khaki", "brown", "red"))(length(breaks))
+  i= approx(x=breaks, y=1:length(breaks), xout=x, method="constant", f=0, rule=1:2)$y
+  ifelse (is.na(i), "transparent", codes[i])
+}
+# Pairs of parameters
+parCombs <- combn(x=colnames(sample), m=2)
+# Goodness-of-fit in relation to two parameters
+layout(matrix(1:(ncol(parCombs) + 1), nrow=1))
+for (i in 1:ncol(parCombs)) {
+  parX <- parCombs[1,i]
+  parY <- parCombs[2,i]
+  plot(sample[,parX], sample[,parY], xlab=parX, ylab=parY, pch=20,
+    col=colorFun(out))
+}
+# Legend
+plot.new()
+tmp= seq(0, 1, 0.2)
+legend("center", bty="n", title="G-O-F",
+  pch=20, col=colorFun(tmp), legend=paste(">",tmp))
+```
+```{r, eval=TRUE, echo=FALSE}
+layout(1)
+```
+
+## Case C: Multi-variate methods
+
+Under construction. Should show an example of RDA at least.
