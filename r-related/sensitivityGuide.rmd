@@ -167,9 +167,9 @@ wrapper <- function(p, fn, ...) {
   out <- NULL
   tryCatch({
     out <- fn(p, ...)
-  }, error= function(x) {
-    out <<- as.character(x)
   }, warning= function(x) {
+    out <<- as.character(x)
+  }, error= function(x) {
     out <<- as.character(x)
   })
   return(list(out))
