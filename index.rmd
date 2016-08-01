@@ -14,22 +14,20 @@ output:
 
 The extended documentation for the package (vignette in PDF format) is available for [download](https://github.com/dkneis/rodeo/raw/master/vignettes/rodeo.pdf) here and it can also be [viewed](https://docs.google.com/viewer?url=https://github.com/dkneis/rodeo/raw/master/vignettes/rodeo.pdf) via google docs. An introductive presentation (PDF file) is provided at [this link](rodeo/presentations/seminarSIAM_20160503.pdf). Interactive modeling examples some of which are implemented with `rodeo` are hosted [here](http://limno-live.hydro.tu-dresden.de) (maintained by TU Dresden, Institute of Hydrobiology).
 
-The current release version of `rodeo` is on [CRAN](http://cran.r-project.org/package=rodeo) and can be installed as usual.
-
-```{r, eval=FALSE, echo=TRUE}
-install.packages('rodeo')
-```
-
-The latest development version is available in the project's [source code repository](https://github.com/dkneis/rodeo). It can be installed as follows:
+The latest version is available in the project's [source code repository](https://github.com/dkneis/rodeo). It can be installed as follows:
 
 ```{r, eval=FALSE, echo=TRUE}
 library('devtools')
 install_github('dkneis/rodeo')
 ```
 
+There is also a release version of `rodeo` on [CRAN](http://cran.r-project.org/package=rodeo). However, due to ongoing development, this version may be somewhat outdated.
+
 ## Demo examples
 
 There is a collection of examples to demonstrate the functionality of `rodeo`. To try out the examples, you need a recent version of [`R`](https://www.r-project.org/) including the developer tools to compile Fortran code. I prepared a short PDF document with [minimalistic instructions](rodeo/instructions/installShort.pdf). In case of problems, please consult the official [administration and installation guide](https://cran.r-project.org/doc/manuals/r-release/R-admin.html), especially the appendices.
+
+**Note** that the examples require the latest version from the [source code repository](https://github.com/dkneis/rodeo) to be installed.
 
 ```{r, echo=FALSE, eval=TRUE}
 # Define published examples; extend the list to add more examples contained in the rodeo/(inst/)examples
@@ -69,7 +67,7 @@ Each of the download links below points to a zip archive. Save the archive to a 
 
 The following packages are not 'officially' released and they are not uploaded on CRAN. The links direct to the respective source code repositories.
 
-* [Generic GUI for `rodeo`-based 0-dimensional models](https://github.com/dkneis/rodeoApp)
+* [Generic GUI for `rodeo`-based 0-dimensional models](https://github.com/dkneis/rodeoApp); deprecated (2016-08-01)
 * [Some utilities for 1D diagenetic modeling](https://github.com/dkneis/diatools)
 
 # R-related material

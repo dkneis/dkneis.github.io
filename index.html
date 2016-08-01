@@ -228,15 +228,15 @@ div.tocify {
 <h2>Basic information</h2>
 <p><a href="http://cran.r-project.org/package=rodeo"><code>rodeo</code></a> is an add-on package for the statistical computing software <a href="https://www.r-project.org/"><code>R</code></a>. It facilitates the implementation of mechanistic models built on ordinary differential equations (ODE). Its heart is a code generator whose output (Fortran95+ or R) can be passed to numerical solvers, namely those from the packages <a href="http://cran.r-project.org/package=deSolve">deSolve</a> and <a href="http://cran.r-project.org/package=rootSolve">rootSolve</a>.</p>
 <p>The extended documentation for the package (vignette in PDF format) is available for <a href="https://github.com/dkneis/rodeo/raw/master/vignettes/rodeo.pdf">download</a> here and it can also be <a href="https://docs.google.com/viewer?url=https://github.com/dkneis/rodeo/raw/master/vignettes/rodeo.pdf">viewed</a> via google docs. An introductive presentation (PDF file) is provided at <a href="rodeo/presentations/seminarSIAM_20160503.pdf">this link</a>. Interactive modeling examples some of which are implemented with <code>rodeo</code> are hosted <a href="http://limno-live.hydro.tu-dresden.de">here</a> (maintained by TU Dresden, Institute of Hydrobiology).</p>
-<p>The current release version of <code>rodeo</code> is on <a href="http://cran.r-project.org/package=rodeo">CRAN</a> and can be installed as usual.</p>
-<pre class="r"><code>install.packages('rodeo')</code></pre>
-<p>The latest development version is available in the project’s <a href="https://github.com/dkneis/rodeo">source code repository</a>. It can be installed as follows:</p>
+<p>The latest version is available in the project’s <a href="https://github.com/dkneis/rodeo">source code repository</a>. It can be installed as follows:</p>
 <pre class="r"><code>library('devtools')
 install_github('dkneis/rodeo')</code></pre>
+<p>There is also a release version of <code>rodeo</code> on <a href="http://cran.r-project.org/package=rodeo">CRAN</a>. However, due to ongoing development, this version may be somewhat outdated.</p>
 </div>
 <div id="demo-examples" class="section level2">
 <h2>Demo examples</h2>
 <p>There is a collection of examples to demonstrate the functionality of <code>rodeo</code>. To try out the examples, you need a recent version of <a href="https://www.r-project.org/"><code>R</code></a> including the developer tools to compile Fortran code. I prepared a short PDF document with <a href="rodeo/instructions/installShort.pdf">minimalistic instructions</a>. In case of problems, please consult the official <a href="https://cran.r-project.org/doc/manuals/r-release/R-admin.html">administration and installation guide</a>, especially the appendices.</p>
+<p><strong>Note</strong> that the examples require the latest version from the <a href="https://github.com/dkneis/rodeo">source code repository</a> to be installed.</p>
 <p>Each of the download links below points to a zip archive. Save the archive to a directory whose name does <strong>not contain white space</strong>, then unpack. This should create a folder containing a file <code>run.r</code> as well as several text and/or spreadsheet files. Open the script <code>run.r</code> in your preferred R editor or IDE and set R’s working directory to the newly created folder, then process <code>run.r</code> through R. Adjustable parameters of the models can be found at the top of each script.</p>
 <table>
 <thead>
@@ -262,7 +262,7 @@ install_github('dkneis/rodeo')</code></pre>
 <h1>Other R packages</h1>
 <p>The following packages are not ‘officially’ released and they are not uploaded on CRAN. The links direct to the respective source code repositories.</p>
 <ul>
-<li><a href="https://github.com/dkneis/rodeoApp">Generic GUI for <code>rodeo</code>-based 0-dimensional models</a></li>
+<li><a href="https://github.com/dkneis/rodeoApp">Generic GUI for <code>rodeo</code>-based 0-dimensional models</a>; deprecated (2016-08-01)</li>
 <li><a href="https://github.com/dkneis/diatools">Some utilities for 1D diagenetic modeling</a></li>
 </ul>
 </div>
