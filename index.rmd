@@ -75,6 +75,7 @@ The following packages are not 'officially' released and they are not uploaded o
 | Topics               | Description |
 |----------------------|-------------|
 | Sensitivity analysis | Analyzing the sensitivity of models with respect to input parameters is a common task. I wrote a [minimalistic guide](r-related/sensitivityGuide.html) on that topic which is a reference for myself but also a kind of tutorial. The described methods are applicable to models implemented with [`rodeo`](http://cran.r-project.org/package=rodeo), for example. You can help to improve the document by sending me feedback (bug reports, suggestions for simplification or extension). |
+| Answer16 | Download course material [for Windows](r-related/answer16/windows/rintro.zip) or [for Linux](r-related/answer16/linux/rintro.zip) |
 
 # Other software
 
