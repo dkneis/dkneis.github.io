@@ -25,43 +25,27 @@ There is also a release version of `rodeo` on [CRAN](http://cran.r-project.org/p
 
 ## Demo examples
 
-There is a collection of examples to demonstrate the functionality of `rodeo`. To try out the examples, you need a recent version of [`R`](https://www.r-project.org/) including the developer tools to compile Fortran code. I prepared a short PDF document with [minimalistic instructions](rodeo/instructions/installShort.pdf). In case of problems, please consult the official [administration and installation guide](https://cran.r-project.org/doc/manuals/r-release/R-admin.html), especially the appendices.
+A set of demo examples is provided with the package. To try them out, you need a recent version of [`R`](https://www.r-project.org/), preferrably  including the developer tools to compile Fortran code. I prepared a short PDF document with [minimalistic instructions](rodeo/instructions/installShort.pdf). In case of problems, please consult the official [administration and installation guide](https://cran.r-project.org/doc/manuals/r-release/R-admin.html), especially the appendices. The examples can also be run without the developer tools at the cost of worse performance, i.e. increased computation time (see below).
 
-**Note** that the examples require the latest version from the [source code repository](https://github.com/dkneis/rodeo) to be installed.
+The demo examples can be found in the `examples` folder of the `rodeo` installation directory whose name should be returned by
 
-```{r, echo=FALSE, eval=TRUE}
-# Define published examples; extend the list to add more examples contained in the rodeo/(inst/)examples
-  examples= list(
-    list(file="streeterPhelpsLike", label="Streeter-Phelps"),
-    list(file="advectionDispersion", label="Advection-Dispersion")
-  )
-  archiveDir= "rodeo/exampleArchives"
+```{r, echo=TRUE, eval=FALSE}
+system.file("examples",package="rodeo")
 ```
 
+and the contents may be listed as follows
 
-```{r, echo=FALSE, eval=TRUE}
-# This creates the downloadable archive files
-for (i in 1:length(examples)) {
-  archive= paste0(archiveDir,"/",examples[[i]]$file,".zip")
-  if (file.exists(archive)) 
-    file.remove(archive)
-  system(paste0("zip -r -j ",archive," ", system.file(paste0("examples/",examples[[i]]$file), package="rodeo")))
-}
+```{r, echo=TRUE, eval=FALSE}
+list.files(system.file("examples",package="rodeo"), recursive=TRUE)
 ```
 
+Each of the sub-folders contains a file `README.txt` as well as a file `run.r` to run the example. Open the latter file in your preferred R editor or IDE and set R's working directory to the folder where `run.r` resides. Adjustable parameters of the models can be found at the top of the file. In particular, you should make sure to use
 
-```{r, echo=FALSE, eval=TRUE}
-tableOfExamples="| Download | Description |\n|---|---|\n"
-for (i in 1:length(examples)) {
-  archive= paste0(archiveDir,"/",examples[[i]]$file,".zip")
-  descr= readLines(system.file(paste0("examples/",examples[[i]]$file,"/README.txt"),package="rodeo"))
-  tableOfExamples= paste0(tableOfExamples,"[",examples[[i]]$label,"](",archive,") | ",descr," |\n")
-}
+```{r, echo=TRUE, eval=FALSE}
+compile= FALSE
 ```
 
-Each of the download links below points to a zip archive. Save the archive to a directory whose name does **not contain white space**, then unpack. This should create a folder containing a file `run.r` as well as several text and/or spreadsheet files. Open the script `run.r` in your preferred R editor or IDE and set R's working directory to the newly created folder, then process `run.r` through R. Adjustable parameters of the models can be found at the top of each script.
-
-`r tableOfExamples`
+if the developer tools (see above) are **not** installed.
 
 # Other R packages
 
