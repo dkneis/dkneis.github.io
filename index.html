@@ -227,7 +227,7 @@ div.tocify {
 <div id="basic-information" class="section level2">
 <h2>Basic information</h2>
 <p><a href="http://cran.r-project.org/package=rodeo"><code>rodeo</code></a> is an add-on package for the statistical computing software <a href="https://www.r-project.org/"><code>R</code></a>. It facilitates the implementation of mechanistic models built on ordinary differential equations (ODE). Its heart is a code generator whose output (Fortran95+ or R) can be passed to numerical solvers, namely those from the packages <a href="http://cran.r-project.org/package=deSolve">deSolve</a> and <a href="http://cran.r-project.org/package=rootSolve">rootSolve</a>.</p>
-<p>The extended documentation for the package (vignette in PDF format) is available for <a href="https://github.com/dkneis/rodeo/raw/master/vignettes/rodeo.pdf">download</a> here and it can also be <a href="https://docs.google.com/viewer?url=https://github.com/dkneis/rodeo/raw/master/vignettes/rodeo.pdf">viewed</a> via google docs. An introductive presentation (PDF file) is provided at <a href="rodeo/presentations/seminarSIAM_20160503.pdf">this link</a>. Interactive modeling examples some of which are implemented with <code>rodeo</code> are hosted <a href="http://limno-live.hydro.tu-dresden.de">here</a> (maintained by TU Dresden, Institute of Hydrobiology).</p>
+<p>The <a href="https://github.com/dkneis/rodeo/blob/master/vignettes/rodeoVignette.pdf">extended documentation (PDF)</a> for the <code>rodeo</code> package describes basic functionalities and contains many examples. A brief overview on the package’s objectives and concepts is given in <a href="rodeo/presentations/seminarSIAM_20160503.pdf">this presentation (PDF)</a>. Interactive modeling examples some of which are implemented with <code>rodeo</code> are hosted at a <a href="http://limno-live.hydro.tu-dresden.de">dedicated server</a> maintained by TU Dresden, Institute of Hydrobiology.</p>
 <p>The latest version is available in the project’s <a href="https://github.com/dkneis/rodeo">source code repository</a>. It can be installed as follows:</p>
 <pre class="r"><code>library('devtools')
 install_github('dkneis/rodeo')</code></pre>
@@ -235,14 +235,15 @@ install_github('dkneis/rodeo')</code></pre>
 </div>
 <div id="demo-examples" class="section level2">
 <h2>Demo examples</h2>
-<p>A set of demo examples is provided with the package. To try them out, you need a recent version of <a href="https://www.r-project.org/"><code>R</code></a>, preferrably including the developer tools to compile Fortran code. I prepared a short PDF document with <a href="rodeo/instructions/installShort.pdf">minimalistic instructions</a>. In case of problems, please consult the official <a href="https://cran.r-project.org/doc/manuals/r-release/R-admin.html">administration and installation guide</a>, especially the appendices. The examples can also be run without the developer tools at the cost of worse performance, i.e. increased computation time (see below).</p>
-<p>The demo examples can be found in the <code>examples</code> folder of the <code>rodeo</code> installation directory whose name should be returned by</p>
-<pre class="r"><code>system.file(&quot;examples&quot;,package=&quot;rodeo&quot;)</code></pre>
-<p>and the contents may be listed as follows</p>
-<pre class="r"><code>list.files(system.file(&quot;examples&quot;,package=&quot;rodeo&quot;), recursive=TRUE)</code></pre>
-<p>Each of the sub-folders contains a file <code>README.txt</code> as well as a file <code>run.r</code> to run the example. Open the latter file in your preferred R editor or IDE and set R’s working directory to the folder where <code>run.r</code> resides. Adjustable parameters of the models can be found at the top of the file. In particular, you should make sure to use</p>
-<pre class="r"><code>compile= FALSE</code></pre>
-<p>if the developer tools (see above) are <strong>not</strong> installed.</p>
+<p>A set of demo examples is contained in the package vignette (see link above). The related data and scripts are shipped with the package (see folder <code>rodeo/doc/examples</code> after installation). To find the actual location of that folder, use</p>
+<pre class="r"><code>system.file(&quot;doc/examples&quot;,package=&quot;rodeo&quot;)</code></pre>
+<p>To run the examples, you need</p>
+<ul>
+<li><p>the <em>development version</em> of the package (see above),</p></li>
+<li><p>a recent version of <a href="https://www.r-project.org/"><code>R</code></a>,</p></li>
+<li><p>the developer tools to compile Fortran code.</p></li>
+</ul>
+<p>Regarding the last point, I prepared a short PDF document with <a href="rodeo/instructions/installShort.pdf">minimalistic instructions</a>. In case of problems, please consult the official <a href="https://cran.r-project.org/doc/manuals/r-release/R-admin.html">administration and installation guide</a>, especially the appendices.</p>
 </div>
 </div>
 <div id="other-r-packages" class="section level1">
